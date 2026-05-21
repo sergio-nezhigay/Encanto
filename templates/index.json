@@ -9,47 +9,6 @@
  */
 {
   "sections": {
-    "countdown_6kCrxH": {
-      "type": "countdown",
-      "blocks": {
-        "heading_HgUw36": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h1"
-          }
-        },
-        "timer_AjeWHi": {
-          "type": "timer",
-          "settings": {
-            "date": "2026-05-16",
-            "number_size": "medium",
-            "head_font": false,
-            "timer_color": "#212121",
-            "timer_color_bg": "#ffffff",
-            "tm_bg_opacity": 0.3,
-            "message": "<p>Sale is end!</p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_HgUw36",
-        "timer_AjeWHi"
-      ],
-      "name": "Countdown",
-      "settings": {
-        "image_overlay_opacity": 0,
-        "image_height": "xsmall",
-        "desktop_content_position": "middle-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": true,
-        "show_text_below": false
-      }
-    },
     "image_hero_banner_xNWNbc": {
       "type": "image-hero-banner",
       "name": "Image Hero Banner",
@@ -1298,7 +1257,6 @@
     }
   },
   "order": [
-    "countdown_6kCrxH",
     "image_hero_banner_xNWNbc",
     "rich_text_jyYaki",
     "about_us_mission_WnTyGj",

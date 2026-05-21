@@ -6,6 +6,9 @@
   left: 0;
   height: 100%;
   width: 100%;
+}
+.section--countdown .media video,
+.section--countdown .media > picture img {
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center center;

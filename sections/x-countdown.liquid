@@ -1,7 +1,30 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 {{ 'x-section-countdown.css' | asset_url | stylesheet_tag }}
 
-{%- if section.settings.image_height == 'adapt' and section.settings.image_desktop != blank -%}
+<script src="{{ 'multisource-video.js' | asset_url }}" defer="defer"></script>
+
+{%- if section.settings.video_mobile != blank -%}
+  {%- style -%}
+    @media screen and (max-width: 749px) {
+      #Banner-{{ section.id }}::before,
+      #Banner-{{ section.id }} .banner__media::before,
+      #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.video_mobile.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      #Banner-{{ section.id }}::before,
+      #Banner-{{ section.id }} .banner__media::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.video_desktop.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
+    }
+  {%- endstyle -%}
+{%- elsif section.settings.image_height == 'adapt' and section.settings.image_desktop != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
       #Banner-{{ section.id }}::before,
@@ -56,7 +79,19 @@
   id="Banner-{{ section.id }}"
   class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
-  {%- if section.settings.image_desktop != blank -%}
+  {%- if section.settings.video_mobile != blank -%}
+    <div class="banner__media media{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <multisource-video
+        data-url-mobile="{{ section.settings.video_mobile.sources[1].url }}"
+        data-url-desktop="{{ section.settings.video_desktop.sources[1].url }}"
+      >
+        {{
+          section.settings.video_mobile
+          | video_tag: image_size: '400x', muted: true, autoplay: true, loop: true, controls: false
+        }}
+      </multisource-video>
+    </div>
+  {%- elsif section.settings.image_desktop != blank -%}
     <div class="banner__media media{% if section.settings.image_desktop == blank and section.settings.image_mobile == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
         assign image_height = section.settings.image_desktop.width | divided_by: section.settings.image_desktop.aspect_ratio
@@ -72,26 +107,30 @@
         # endif
       -%}
       <picture>
-        <source srcset="{{ section.settings.image_mobile | image_url: width: section.settings.image_mobile.width }}" media="(max-width: 749px)">
+        <source
+          srcset="{{ section.settings.image_mobile | image_url: width: section.settings.image_mobile.width }}"
+          media="(max-width: 749px)"
+        >
         {{
           section.settings.image_desktop
           | image_url: width: section.settings.image_desktop.width
           | image_tag: loading: 'lazy'
         }}
       </picture>
-      {% comment %} {{
-        section.settings.image_desktop
-        | image_url: width: 3840
-        | image_tag:
-          width: section.settings.image.width,
-          height: image_height,
-          class: image_class,
-          sizes: sizes,
-          widths: widths,
-          fetchpriority: fetch_priority
-      }} {% endcomment %}
+      {% comment %}
+        {{
+          section.settings.image_desktop
+          | image_url: width: 3840
+          | image_tag:
+            width: section.settings.image.width,
+            height: image_height,
+            class: image_class,
+            sizes: sizes,
+            widths: widths,
+            fetchpriority: fetch_priority
+        }}
+      {% endcomment %}
     </div>
- 
   {%- endif -%}
   <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
@@ -267,6 +306,16 @@
       "label": "t:sections.x_countdown.settings.image_desktop.label"
     },
     {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "A Shopify-hosted video on mobile"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "A Shopify-hosted video on desktop"
+    },
+    {
       "type": "range",
       "id": "image_overlay_opacity",
       "min": 0,
@@ -432,12 +481,6 @@
       "default": "center",
       "label": "t:sections.x_countdown.settings.mobile_content_alignment.label"
     },
-    // {
-    //   "type": "checkbox",
-    //   "id": "stack_images_on_mobile",
-    //   "default": true,
-    //   "label": "t:sections.x_countdown.settings.stack_images_on_mobile.label"
-    // },
     {
       "type": "checkbox",
       "id": "show_text_below",

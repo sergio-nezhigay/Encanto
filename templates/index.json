@@ -74,7 +74,7 @@
       "settings": {
         "image_mobile": "shopify://shop_images/755053_IMG_5601.jpg",
         "image_desktop": "shopify://shop_images/image-a1538bc6-e570-40df-9389-49d72b2d9821.jpg",
-        "banner_link": "shopify://pages/contact",
+        "banner_link": "https://ctrmarathon.com/",
         "image_overlay_opacity": 0,
         "image_height": "adapt",
         "desktop_content_position": "bottom-center",

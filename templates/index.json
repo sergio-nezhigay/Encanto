@@ -72,8 +72,8 @@
       ],
       "name": "t:sections.x_countdown.presets.name",
       "settings": {
-        "video_mobile": "shopify://files/videos/IMG_1237.MP4",
-        "video_desktop": "shopify://files/videos/755054_IMG_5690 rotated.mp4",
+        "image_mobile": "shopify://shop_images/755053_IMG_5601.jpg",
+        "image_desktop": "shopify://shop_images/image-a1538bc6-e570-40df-9389-49d72b2d9821.jpg",
         "image_overlay_opacity": 0,
         "image_height": "adapt",
         "desktop_content_position": "middle-center",

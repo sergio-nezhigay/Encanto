@@ -1,9 +1,39 @@
 @use "mixins/media" as *;
 
 .section--countdown {
+  .banner {
+    &.banner--content-align-center {
+      &::before {
+        @include sm {
+          display: none !important;
+        }
+      }
+
+      @include sm {
+        flex-direction: column;
+      }
+
+      .banner__media {
+        @include sm {
+          position: relative;
+        }
+      }
+    }
+  }
+
+  .banner__link {
+    z-index: 5;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+  }
+
   .media {
     border-radius: var(--media-radius);
-    
+
     > picture img {
       display: block;
       max-width: 100%;
@@ -22,5 +52,86 @@
       height: 100%;
       width: 100%;
     }
+  }
+
+  .banner__content {
+    margin-block-start: 1.5rem;
+
+    @include sm {
+      padding: 0 !important;
+    }
+
+    .banner__box {
+      border-radius: var(--media-radius);
+      padding: 1.5rem;
+
+      @include sm {
+        max-width: none;
+        width: 100%;
+      }
+    }
+  }
+
+  .component-timer__wrapper {
+    --items-gap: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: flex-start;
+    gap: var(--items-gap);
+
+    @include xxs {
+      --items-gap: 40px;
+    }
+
+    @include md {
+      --items-gap: 90px;
+    }
+  }
+
+  .component-timer__item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+    gap: 4px;
+    font-size: 14px;
+    position: relative;
+    text-align: center;
+
+    &:first-child {
+      &::before {
+        display: none;
+      }
+    }
+
+    &::before {
+      background: currentColor;
+      content: "";
+      height: 100%;
+      left: calc(var(--items-gap) / -2);
+      position: absolute;
+      top: 0;
+      width: 1px;
+    }
+  }
+
+  .component-timer__number,
+  .component-timer__expired {
+    font:
+      700 26px/1 AttilaSansClassic,
+      sans-serif;
+
+    @include md {
+      font-size: 40px;
+    }
+  }
+
+  .component-timer__expired {
+    display: none;
   }
 }

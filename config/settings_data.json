@@ -161,41 +161,6 @@
         "disabled": false,
         "settings": {}
       },
-      "11354984448963461329": {
-        "type": "shopify://apps/g-translate-shop-translator/blocks/dropdown_with_flags/408a74ac-f92d-43cf-a1b1-a044341e66bd",
-        "disabled": true,
-        "settings": {
-          "horizontal_position": "right",
-          "vertical_position": "top",
-          "open_direction": "bottom",
-          "native_language_names": false,
-          "flag_size": "24",
-          "flag_style": "2d",
-          "switcher_text_color": "#666666",
-          "switcher_arrow_color": "#666666",
-          "switcher_border_color": "#cccccc",
-          "switcher_background_color": "#ffffff",
-          "switcher_background_shadow_color": "#efefef",
-          "switcher_background_hover_color": "#ffffff",
-          "dropdown_text_color": "#000000",
-          "dropdown_hover_color": "#ffffff",
-          "dropdown_background_color": "#eeeeee",
-          "wrapper_selector": "",
-          "custom_css": ""
-        }
-      },
-      "10008203421340698720": {
-        "type": "shopify://apps/g-translate-shop-translator/blocks/dropdown/408a74ac-f92d-43cf-a1b1-a044341e66bd",
-        "disabled": false,
-        "settings": {
-          "horizontal_position": "right",
-          "vertical_position": "top",
-          "select_language_label": "Select Language",
-          "native_language_names": false,
-          "wrapper_selector": ".header__icons",
-          "custom_css": ""
-        }
-      },
       "1513253815146976218": {
         "type": "shopify://apps/omnisend-email-marketing-sms/blocks/app-embed/44704aa2-794f-4c5d-8c8e-039c841158e9",
         "disabled": false,
@@ -266,6 +231,17 @@
           "button_label": "#334fb4",
           "secondary_button_label": "#ffffff",
           "shadow": "#121212"
+        }
+      },
+      "scheme-7110cbcf-faab-4dc9-bf98-239da9a0f005": {
+        "settings": {
+          "background": "#f0f0f0",
+          "background_gradient": "",
+          "text": "#121212",
+          "button": "#000000",
+          "button_label": "#f8f8f8",
+          "secondary_button_label": "#000000",
+          "shadow": "#666666"
         }
       }
     }

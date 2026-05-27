@@ -24,7 +24,7 @@
           "type": "text",
           "settings": {
             "heading": "Do you offer free shipping?",
-            "answer": "<p>Yes, we provide free standard shipping on all orders over $100. For orders under $100, a small shipping fee applies, which will be shown at checkout.</p>"
+            "answer": "<p>Yes, we provide free standard shipping on all orders over €150. For orders under €150, a small shipping fee applies, which will be shown at checkout.</p>"
           }
         },
         "text_8yDhxc": {

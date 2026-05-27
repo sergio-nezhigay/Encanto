@@ -2,11 +2,12 @@
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
     {% render 'iplogger' %}
-    {% render 'google-tag' %}
+    {% render 'clarity' %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
+    <meta name="facebook-domain-verification" content="l2wszws2ip1ot0fjnfxuukott9hhi0">
     <link rel="canonical" href="{{ canonical_url }}">
   {%- if template == "collection" and collection.products_count == 0 -%}
   <meta name="robots" content="noindex, follow">
@@ -118,6 +119,7 @@
         {{ settings.type_header_font | font_face: font_display: 'swap' }}
       {%- endunless -%}
 
+      {%- assign scheme_classes = '' -%}
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
         {% if forloop.index == 1 -%}
@@ -451,6 +453,7 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Read More/Less — only on COLLECTION pages (description block), NOT on homepage review slider
@@ -462,9 +465,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if the content is actually overflowing the 3-line limit
     if (descEl.scrollHeight > descEl.clientHeight) {
       var btn = document.createElement('button');
-      btn.textContent = 'Read more';
+      var readMoreText = {{ 'general.read_more' | t | json }};
+      var readLessText = {{ 'general.read_less' | t | json }};
+      btn.textContent = readMoreText;
       btn.style.cssText = 'background:none;border:none;color:#888;font-size:12px;cursor:pointer;padding:6px 0 0;text-decoration:underline;font-family:inherit;display:block;';
-      
+
       var expanded = false;
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -472,10 +477,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (expanded) {
           descEl.style.webkitLineClamp = 'unset';
           descEl.style.maxHeight = 'none';
-          btn.textContent = 'Read less';
+          btn.textContent = readLessText;
         } else {
           descEl.style.webkitLineClamp = '3';
-          btn.textContent = 'Read more';
+          btn.textContent = readMoreText;
         }
       });
       descEl.parentNode.insertBefore(btn, descEl.nextSibling);
@@ -511,144 +516,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, true);
   });
 });
-</script>
-<script>
-  (function() {
-    var mobileBreakpoint = window.matchMedia('(max-width: 989px)');
-    var observer;
-
-    function buildGtCustomUI() {
-      var select = document.querySelector('.gt_selector');
-      if (!select || select.dataset.gtCustom) return;
-      select.dataset.gtCustom = '1';
-
-      var wrapper = document.createElement('div');
-      wrapper.className = 'gt-custom-switcher';
-
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'gt-custom-trigger disclosure__button localization-selector link link--text caption-large';
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-haspopup', 'listbox');
-
-      var list = document.createElement('ul');
-      list.className = 'gt-custom-dropdown list-unstyled';
-      list.setAttribute('role', 'listbox');
-
-      function getSelectedText() {
-        var opt = select.options[select.selectedIndex];
-        if (!opt || !opt.value || opt.text === 'Select Language') {
-          var lang = (document.documentElement.lang || 'en').toLowerCase();
-          for (var i = 0; i < select.options.length; i++) {
-            if (select.options[i].value.toLowerCase() === lang) return select.options[i].text;
-          }
-          return 'Language';
-        }
-        return opt.text;
-      }
-
-      function updateTrigger() {
-        btn.innerHTML =
-          '<span>' + getSelectedText() + '</span>' +
-          '<svg class="icon icon-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"></path></svg>';
-      }
-
-      function buildOptions() {
-        list.innerHTML = '';
-        var currentText = getSelectedText();
-        Array.from(select.options).forEach(function(opt) {
-          if (!opt.value || opt.text === 'Select Language') return;
-          var isActive = opt.text === currentText;
-          var li = document.createElement('li');
-          li.className = 'gt-custom-item';
-          li.setAttribute('role', 'option');
-          li.setAttribute('aria-selected', isActive ? 'true' : 'false');
-
-          var itemBtn = document.createElement('button');
-          itemBtn.type = 'button';
-          itemBtn.className = 'gt-custom-option' + (isActive ? ' gt-custom-option--active' : '');
-          itemBtn.dataset.value = opt.value;
-          itemBtn.innerHTML = isActive
-            ? '<svg class="gt-custom-check" viewBox="0 0 13 9" width="13" height="9" aria-hidden="true"><path d="M1 4.5 5 8l7-7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>' + opt.text + '</span>'
-            : '<span>' + opt.text + '</span>';
-
-          itemBtn.addEventListener('click', function() {
-            select.value = opt.value;
-            select.dispatchEvent(new Event('change'));
-            closeDropdown();
-          });
-
-          li.appendChild(itemBtn);
-          list.appendChild(li);
-        });
-      }
-
-      function openDropdown() {
-        btn.setAttribute('aria-expanded', 'true');
-        buildOptions();
-        list.classList.add('gt-custom-dropdown--open');
-      }
-
-      function closeDropdown() {
-        btn.setAttribute('aria-expanded', 'false');
-        list.classList.remove('gt-custom-dropdown--open');
-      }
-
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        btn.getAttribute('aria-expanded') === 'true' ? closeDropdown() : openDropdown();
-      });
-
-      document.addEventListener('click', function() { closeDropdown(); });
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDropdown(); });
-
-      updateTrigger();
-
-      select.parentElement.insertBefore(wrapper, select);
-      wrapper.appendChild(select);
-      wrapper.appendChild(btn);
-      wrapper.appendChild(list);
-    }
-
-    function relocateGTranslateSelector() {
-      var el = document.querySelector('.gt-custom-switcher') || document.querySelector('.gt_selector');
-      var headerIcons = document.querySelector('.header__icons');
-      var mobileSlot = document.querySelector('[data-mobile-language-switcher-slot]');
-
-      if (!el || !headerIcons) return;
-
-      var target = mobileBreakpoint.matches && mobileSlot ? mobileSlot : headerIcons;
-
-      if (el.parentElement !== target) {
-        target.appendChild(el);
-      }
-      buildGtCustomUI();
-    }
-
-    function ensureObserver() {
-      if (observer || !document.documentElement) return;
-
-      observer = new MutationObserver(function() {
-        relocateGTranslateSelector();
-      });
-
-      observer.observe(document.documentElement, { childList: true, subtree: true });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      relocateGTranslateSelector();
-      ensureObserver();
-
-      if (mobileBreakpoint.addEventListener) {
-        mobileBreakpoint.addEventListener('change', relocateGTranslateSelector);
-      } else {
-        mobileBreakpoint.addListener(relocateGTranslateSelector);
-      }
-
-      document.addEventListener('shopify:section:load', relocateGTranslateSelector);
-      document.addEventListener('shopify:section:reorder', relocateGTranslateSelector);
-    });
-  })();
 </script>
 
   </body>

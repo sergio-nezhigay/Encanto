@@ -156,7 +156,10 @@
           data-product-url="{{ product.url }}"
           aria-haspopup="dialog"
         >
-          Quick Buy
+          <span class="dame-quick-buy-btn__inner">
+            Quick Buy
+            {%- render 'icon-cart-atc' -%}
+          </span>
           {%- render 'loading-spinner' -%}
         </button>
       </modal-opener>

@@ -457,6 +457,18 @@
   line-height: 1;
 }
 
+.dame-quick-buy-btn__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dame-quick-buy-btn__inner svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
 .dame-quick-buy-btn:hover {
   background: #111;
   color: #fff;

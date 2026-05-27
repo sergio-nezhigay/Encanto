@@ -53,6 +53,13 @@
             "heading_size": "h1"
           }
         },
+        "text_jTf4nF": {
+          "type": "text",
+          "settings": {
+            "text": "Come to the marathon now and get a pair of shadows of your choice – choose your color! Your must-have for the wedding season",
+            "text_style": "body"
+          }
+        },
         "timer_yf9CJH": {
           "type": "timer",
           "settings": {
@@ -68,13 +75,14 @@
       },
       "block_order": [
         "heading_w7MUDd",
+        "text_jTf4nF",
         "timer_yf9CJH"
       ],
       "name": "t:sections.x_countdown.presets.name",
       "settings": {
         "image_mobile": "shopify://shop_images/755053_IMG_5601.jpg",
         "image_desktop": "shopify://shop_images/image-a1538bc6-e570-40df-9389-49d72b2d9821.jpg",
-        "banner_link": "shopify://pages/contact",
+        "banner_link": "https://ctrmarathon.com/",
         "image_overlay_opacity": 0,
         "image_height": "adapt",
         "desktop_content_position": "bottom-center",

@@ -219,10 +219,11 @@
                   <a
                     {% if block.settings.button_link_1 == blank %}
                       role="link" aria-disabled="true"
-                    {% elsif block.settings.button_link_1 contains 'https://' %}
-                      target="_blank"
                     {% else %}
                       href="{{ block.settings.button_link_1 }}"
+                    {% endif %}
+                    {% if block.settings.button_link_1 contains 'https://' %}
+                      target="_blank"
                     {% endif %}
                     class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
                   >
@@ -233,10 +234,11 @@
                   <a
                     {% if block.settings.button_link_2 == blank %}
                       role="link" aria-disabled="true"
-                    {% elsif block.settings.button_link_2 contains 'https://' %}
-                      target="_blank"
                     {% else %}
                       href="{{ block.settings.button_link_2 }}"
+                    {% endif %}
+                    {% if block.settings.button_link_2 contains 'https://' %}
+                      target="_blank"
                     {% endif %}
                     class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
                   >

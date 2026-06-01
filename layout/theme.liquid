@@ -457,28 +457,29 @@
       document.addEventListener('DOMContentLoaded', function () {
         // Read More/Less — only on COLLECTION pages (description block), NOT on homepage review slider
         // Read More/Less for Collection Description
-        (function () {
+        (function() {
           var descEl = document.querySelector('.collection-hero__description');
           if (!descEl) return;
 
           // Check if the content is actually overflowing the 3-line limit
           if (descEl.scrollHeight > descEl.clientHeight) {
             var btn = document.createElement('button');
-            btn.textContent = 'Read more';
-            btn.style.cssText =
-              'background:none;border:none;color:#888;font-size:12px;cursor:pointer;padding:6px 0 0;text-decoration:underline;font-family:inherit;display:block;';
+            var readMoreText = {{ 'general.read_more' | t | json }};
+            var readLessText = {{ 'general.read_less' | t | json }};
+            btn.textContent = readMoreText;
+            btn.style.cssText = 'background:none;border:none;color:#888;font-size:12px;cursor:pointer;padding:6px 0 0;text-decoration:underline;font-family:inherit;display:block;';
 
             var expanded = false;
-            btn.addEventListener('click', function (e) {
+            btn.addEventListener('click', function(e) {
               e.stopPropagation();
               expanded = !expanded;
               if (expanded) {
                 descEl.style.webkitLineClamp = 'unset';
                 descEl.style.maxHeight = 'none';
-                btn.textContent = 'Read less';
+                btn.textContent = readLessText;
               } else {
                 descEl.style.webkitLineClamp = '3';
-                btn.textContent = 'Read more';
+                btn.textContent = readMoreText;
               }
             });
             descEl.parentNode.insertBefore(btn, descEl.nextSibling);

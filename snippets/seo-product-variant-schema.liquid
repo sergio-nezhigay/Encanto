@@ -19,6 +19,7 @@
   assign review_count = product.metafields.reviews.rating_count
 
   assign reviews_data = product.metafields.reviews.reviews.value
+  assign product_description_plain = product.description | strip_html | strip_newlines | replace: '&amp;', '&' | replace: '&#38;', '&' | strip
 -%}
 <script type="application/ld+json">
   {
@@ -27,7 +28,7 @@
     "@id": {{ group_id | json }},
     "productGroupID": {{ product.id | json }},
     "name": {{ product.title | strip | json }},
-    "description": {{ product.description | strip_html | strip_newlines | json }},
+    "description": {{ product_description_plain | json }},
     "url": {{ product_url | json }},
     "brand": {
       "@type": "Brand",
@@ -81,7 +82,7 @@
           "@type": "Product",
           "@id": {{ variant.url | prepend: request.origin | append: '#variant-' | append: variant.id | json }},
           "name": {%- if variant.title != 'Default Title' and variant.title != blank -%}{{ product.title | append: ' - ' | append: variant.title | strip | json }}{%- else -%}{{ product.title | strip | json }}{%- endif -%},
-          "description": {{ product.description | strip_html | strip_newlines | json }},
+          "description": {{ product_description_plain | json }},
           "url": {{ variant.url | prepend: request.origin | json }},
           "isVariantOf": {
             "@id": {{ group_id | json }}

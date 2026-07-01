@@ -434,6 +434,9 @@
         },
         "button_style_secondary": {
           "label": "Użyj stylu przycisku z obramowaniem"
+        },
+        "text": {
+          "label": "Tekst"
         }
       }
     },
@@ -463,6 +466,9 @@
         },
         "heading": {
           "label": "Nagłówek"
+        },
+        "text": {
+          "label": "Tekst"
         }
       },
       "blocks": {

@@ -9,6 +9,7 @@
     "test:theme": "playwright test playwright/theme-deploy.spec.ts",
     "test:coffee": "playwright test playwright/e2e-buy-product.spec.ts",
     "test:subscription": "playwright test playwright/e2e-subscribe-save.spec.ts",
+    "dev": "shopify theme dev --store=drmtdf-we.myshopify.com --theme 195647930693",
     "gulp": "gulp"
   },
   "author": "",
